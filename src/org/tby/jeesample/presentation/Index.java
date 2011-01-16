@@ -23,6 +23,10 @@ public class Index {
         return mMovie.getTitle();
     }
 
+    public void setMovieTitle(String aTitle) {
+        mMovie.setTitle(aTitle);
+    }
+
     public List<String> getAllMovies() {
         List<String> result = new ArrayList<String>();
         List<Movie> all = mMovieService.findAll();
@@ -31,10 +35,6 @@ public class Index {
         }
 
         return result;
-    }
-
-    public void setMovieTitle(String aTitle) {
-        mMovie.setTitle(aTitle);
     }
 
     public void save() {
