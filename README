@@ -1,0 +1,2 @@
+The current configuration is using Hibernate as a persistence provider.
+See http://blogs.sun.com/GlassFishPersistence/entry/using_hibernate_as_jpa_provider on how to use Hibernate instead of EclipseLink on GlassFish V3. 
