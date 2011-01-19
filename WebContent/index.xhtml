@@ -3,19 +3,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
 	<h:head>
-		<title>JEE Sample</title>
+		<title>Activity Inventory</title>
 	</h:head>
 	<h:body>
-		<h3>New movie</h3>
+		<h3>New Activity</h3>
 		<h:form>
-			New movie title: <h:inputText value="#{index.movieTitle}"/>
+			New activity description: <h:inputText value="#{index.description}"/>
 			<br/>
 		 	<h:commandButton value="OK" action="#{index.save}"/>     
 		</h:form>
-		<h3>My movies</h3>
-		<h:dataTable value="#{index.allMovies}" var="title">
+		<h3>Activities</h3>
+		<h:dataTable value="#{index.allActivities}" var="description">
 			 <h:column>
-			  <h:outputText value="#{title}"/>
+			  <h:outputText value="#{description}"/>
 			 </h:column>
 		</h:dataTable>
 	</h:body>

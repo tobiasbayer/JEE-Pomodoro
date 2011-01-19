@@ -25,7 +25,7 @@ public class ToDoList {
 
     private Set<ToDo> mToDo = new HashSet<ToDo>();
 
-    private User mOwner;
+    private SystemUser mOwner;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,11 +68,11 @@ public class ToDoList {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @NotNull
-    public User getOwner() {
+    public SystemUser getOwner() {
         return mOwner;
     }
 
-    public void setOwner(User aOwner) {
+    public void setOwner(SystemUser aOwner) {
         this.mOwner = aOwner;
     }
 }

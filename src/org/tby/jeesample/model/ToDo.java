@@ -22,11 +22,11 @@ public class ToDo {
 
     private int mEstimate;
 
-    private Boolean mFinished;
+    private boolean mFinished;
 
     private Set<Pomodoro> mPomodoro = new HashSet<Pomodoro>();
 
-    private User mOwner;
+    private SystemUser mOwner;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,12 +55,11 @@ public class ToDo {
         mEstimate = aEstimate;
     }
 
-    @NotNull
-    public Boolean getFinished() {
+    public boolean getFinished() {
         return mFinished;
     }
 
-    public void setFinished(Boolean aFinished) {
+    public void setFinished(boolean aFinished) {
         mFinished = aFinished;
     }
 
@@ -85,11 +84,11 @@ public class ToDo {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @NotNull
-    public User getOwner() {
+    public SystemUser getOwner() {
         return mOwner;
     }
 
-    public void setOwner(User aOwner) {
+    public void setOwner(SystemUser aOwner) {
         mOwner = aOwner;
     }
 }
