@@ -18,6 +18,6 @@
     <param-value>Development</param-value>
   </context-param>
   <welcome-file-list>
-    <welcome-file>index.jsf</welcome-file>
+    <welcome-file>activities.jsf</welcome-file>
   </welcome-file-list>
 </web-app>

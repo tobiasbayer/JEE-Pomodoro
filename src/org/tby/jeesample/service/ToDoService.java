@@ -8,14 +8,26 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.model.SystemUser;
+import org.tby.jeesample.model.ToDo;
 
 @Stateless
 public class ToDoService {
 
     @PersistenceContext
     private EntityManager mEntityManager;
+
+    public ToDo create() {
+        return new ToDo();
+    }
+
+    public void delete(ToDo aToDo) {
+        mEntityManager.remove(aToDo);
+    }
+
+    public ToDo find(Long aId) {
+        return mEntityManager.find(ToDo.class, aId);
+    }
 
     public void save(ToDo aToDo) {
         // TODO replace with user from session once user management is
