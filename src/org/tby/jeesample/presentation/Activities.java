@@ -3,6 +3,7 @@ package org.tby.jeesample.presentation;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -11,8 +12,9 @@ import javax.inject.Named;
 import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.service.ToDoService;
 
+@SuppressWarnings("serial")
 @Named
-@javax.enterprise.context.SessionScoped
+@SessionScoped
 public class Activities implements Serializable {
 
     private final static String ACTIVITIES_PAGE = "activities.xhtml";
