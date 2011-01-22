@@ -1,24 +1,25 @@
 package org.tby.jeesample.presentation;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.service.ToDoService;
 
-@ManagedBean
-@SessionScoped
-public class Activities {
+@Named
+@javax.enterprise.context.SessionScoped
+public class Activities implements Serializable {
 
     private final static String ACTIVITIES_PAGE = "activities.xhtml";
 
     private final static String EDIT_TODO_PAGE = "editToDo.xhtml";
 
-    @EJB
+    @Inject
     private ToDoService mToDoService;
 
     private DataModel<ToDo> mDataModel;
