@@ -1,20 +1,24 @@
 package org.tby.jeesample.presentation;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.service.ToDoService;
 
-@Named
+@ManagedBean
 @SessionScoped
 public class Activities {
 
-    @Inject
+    private final static String ACTIVITIES_PAGE = "activities.xhtml";
+
+    private final static String EDIT_TODO_PAGE = "editToDo.xhtml";
+
+    @EJB
     private ToDoService mToDoService;
 
     private DataModel<ToDo> mDataModel;
@@ -37,31 +41,31 @@ public class Activities {
 
     public String create() {
         mCurrentToDo = mToDoService.create();
-        return null;
+        return EDIT_TODO_PAGE;
     }
 
     public String delete() {
         ToDo todo = mDataModel.getRowData();
         mToDoService.delete(todo);
         reload();
-        return null;
+        return ACTIVITIES_PAGE;
     }
 
     public String edit() {
         mCurrentToDo = mDataModel.getRowData();
         reload();
-        return null;
+        return EDIT_TODO_PAGE;
     }
 
     public String save() {
-        mToDoService.save(mCurrentToDo);
+        mToDoService.update(mCurrentToDo);
         reload();
-        return null;
+        return ACTIVITIES_PAGE;
     }
 
     public String cancel() {
         reload();
-        return null;
+        return ACTIVITIES_PAGE;
     }
 
     public ToDo getCurrentToDo() {

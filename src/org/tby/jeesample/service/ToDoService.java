@@ -22,14 +22,15 @@ public class ToDoService {
     }
 
     public void delete(ToDo aToDo) {
-        mEntityManager.remove(aToDo);
+        ToDo todo = mEntityManager.merge(aToDo);
+        mEntityManager.remove(todo);
     }
 
     public ToDo find(Long aId) {
         return mEntityManager.find(ToDo.class, aId);
     }
 
-    public void save(ToDo aToDo) {
+    public void update(ToDo aToDo) {
         // TODO replace with user from session once user management is
         // implemented
         if (aToDo.getOwner() == null) {
@@ -39,7 +40,7 @@ public class ToDoService {
             user.setPassword("Password");
             aToDo.setOwner(user);
         }
-        mEntityManager.persist(aToDo);
+        mEntityManager.merge(aToDo);
     }
 
     public List<ToDo> findAll() {
