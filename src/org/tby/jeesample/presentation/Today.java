@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.model.ToDoList;
+import org.tby.jeesample.service.PomodoroService;
 import org.tby.jeesample.service.ToDoListService;
 import org.tby.jeesample.service.ToDoService;
 
@@ -26,6 +27,9 @@ public class Today implements Serializable {
 
     @Inject
     private ToDoService mToDoService;
+
+    @Inject
+    private PomodoroService mPomodoroService;
 
     private ToDoList mCurrentToDoList;
 
@@ -92,5 +96,11 @@ public class Today implements Serializable {
 
     public Long getToDoToAddId() {
         return mToDoToAddId;
+    }
+
+    public void addPomodoro() {
+        ToDo todo = mCurrentToDos.getRowData();
+        mToDoService.addPomodoro(todo, mPomodoroService.create());
+        reload();
     }
 }

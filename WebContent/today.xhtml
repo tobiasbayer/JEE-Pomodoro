@@ -48,13 +48,21 @@
 				</f:facet>
 				<h:outputText value="#{todo.finished}" />
 			</h:column>
+			
+			<h:column>
+                <f:facet name="header">
+                    <h:outputText value="Pomodoro" />
+                </f:facet>
+                <h:commandLink id="addPomodoro" action="#{today.addPomodoro}"
+                    value="Add Pomodoro" />
+            </h:column>
 
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Remove" />
 				</f:facet>
 				<h:commandLink id="delete" action="#{today.removeFromList}"
-					value="Remove" />
+					value="Remove from list" />
 			</h:column>
 
 		</h:dataTable>

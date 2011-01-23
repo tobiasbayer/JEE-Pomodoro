@@ -1,5 +1,6 @@
 package org.tby.jeesample.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.tby.jeesample.model.Pomodoro;
 import org.tby.jeesample.model.SystemUser;
 import org.tby.jeesample.model.ToDo;
 
@@ -49,5 +51,12 @@ public class ToDoService {
         CriteriaQuery<ToDo> query = cb.createQuery(ToDo.class);
         query.select(query.from(ToDo.class));
         return mEntityManager.createQuery(query).getResultList();
+    }
+
+    public void addPomodoro(ToDo aToDo, Pomodoro aPomodoro) {
+        ToDo todo = mEntityManager.merge(aToDo);
+        aPomodoro.setAddDate(new Date());
+        todo.addPomodoro(aPomodoro);
+        update(todo);
     }
 }
