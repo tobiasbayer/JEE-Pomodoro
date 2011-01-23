@@ -17,10 +17,6 @@ import org.tby.jeesample.service.ToDoService;
 @SessionScoped
 public class Activities implements Serializable {
 
-    private final static String ACTIVITIES_PAGE = "activities.xhtml";
-
-    private final static String EDIT_TODO_PAGE = "editToDo.xhtml";
-
     @Inject
     private ToDoService mToDoService;
 
@@ -44,31 +40,31 @@ public class Activities implements Serializable {
 
     public String create() {
         mCurrentToDo = mToDoService.create();
-        return EDIT_TODO_PAGE;
+        return Pages.EDIT_TODO;
     }
 
     public String delete() {
         ToDo todo = mDataModel.getRowData();
         mToDoService.delete(todo);
         reload();
-        return ACTIVITIES_PAGE;
+        return Pages.ACTIVITIES;
     }
 
     public String edit() {
         mCurrentToDo = mDataModel.getRowData();
         reload();
-        return EDIT_TODO_PAGE;
+        return Pages.EDIT_TODO;
     }
 
     public String save() {
         mToDoService.update(mCurrentToDo);
         reload();
-        return ACTIVITIES_PAGE;
+        return Pages.ACTIVITIES;
     }
 
     public String cancel() {
         reload();
-        return ACTIVITIES_PAGE;
+        return Pages.ACTIVITIES;
     }
 
     public ToDo getCurrentToDo() {
