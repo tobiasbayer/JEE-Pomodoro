@@ -1,32 +1,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <h1><h:outputText value="Current ToDo" /></h1>
-    </h:head>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h1><h:outputText value="Current ToDo" /></h1>
+</h:head>
 
-    <h:body>
-        <h:form id="form">
-
-
-            <h:panelGrid columns="2">
-
-                <h:outputText id="description-text" value="Description" />
-                <h:inputText id="description" value="#{activities.currentToDo.description}" />
-
-                <h:outputText id="estimate-text" value="Estimate" />
-                <h:inputText id="isbn" value="#{activities.currentToDo.estimate}" />
-
-                <h:commandButton id="save" action="#{activities.save}"
-                    value="Save Activity" />
-                <h:commandButton id="cancel" action="#{activities.cancel}"
-                    value="Cancel" />
-
-            </h:panelGrid>
+<h:body>
+	<h:form id="form">
 
 
-        </h:form>
+		<h:panelGrid columns="2">
 
-    </h:body>
+			<h:outputText id="description-text" value="Description" />
+			<h:inputText id="description"
+				value="#{activities.currentToDo.description}" />
+
+			<h:outputText id="estimate-text" value="Estimate" />
+			<h:inputText id="isbn" value="#{activities.currentToDo.estimate}" />
+
+			<h:commandButton id="save" action="#{activities.save}"
+				value="Save Activity" />
+			<h:commandButton id="cancel" action="#{activities.cancel}"
+				value="Cancel" />
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+</h:body>
 
 </html>

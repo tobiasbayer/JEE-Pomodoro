@@ -1,60 +1,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:body>
-        <a href="today.jsf">To do today</a>
-        <h:form id="form">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<a href="today.jsf">To do today</a>
+	<h:form id="form">
 
-            <h:dataTable value="#{activities.toDos}" var="todo" border="1">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="ID" />
-                    </f:facet>
-                    <h:outputText value="#{todo.id}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Description" />
-                    </f:facet>
-                    <h:outputText value="#{todo.description}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Estimate" />
-                    </f:facet>
-                    <h:outputText value="#{todo.estimate}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Finished" />
-                    </f:facet>
-                    <h:outputText value="#{todo.finished}" />
-                </h:column>
+		<h:dataTable value="#{activities.toDos}" var="todo" border="1">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{todo.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+				<h:outputText value="#{todo.description}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Estimate" />
+				</f:facet>
+				<h:outputText value="#{todo.estimate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Finished" />
+				</f:facet>
+				<h:outputText value="#{todo.finished}" />
+			</h:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Edit" />
-                    </f:facet>
-                    <h:commandLink id="edit" action="#{activities.edit}" value="Edit" />
-                </h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Edit" />
+				</f:facet>
+				<h:commandLink id="edit" action="#{activities.edit}" value="Edit" />
+			</h:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Delete" />
-                    </f:facet>
-                    <h:commandLink id="delete" action="#{activities.delete}"
-                        value="Delete" />
-                </h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Delete" />
+				</f:facet>
+				<h:commandLink id="delete" action="#{activities.delete}"
+					value="Delete" />
+			</h:column>
 
-            </h:dataTable>
+		</h:dataTable>
 
-            <h:panelGrid columns="1">
+		<h:panelGrid columns="1">
 
-                <h:commandButton id="add" action="#{activities.create}"
-                    value="Add activity" />
+			<h:commandButton id="add" action="#{activities.create}"
+				value="Add activity" />
 
-            </h:panelGrid>
-        </h:form>
-    </h:body>
+		</h:panelGrid>
+	</h:form>
+</h:body>
 </html>

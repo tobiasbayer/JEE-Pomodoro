@@ -1,21 +1,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <h1><h:outputText value="ToDo per Day" /></h1>
-    </h:head>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h1><h:outputText value="ToDo per Day" /></h1>
+</h:head>
 
-    <h:body>
+<h:body>
         Here goes a date selection box
         <br></br>
-        <a href="activities.jsf">Activity inventory</a>
-        <br></br>
-        ToDos for <h:outputText value="#{today.todayToDoList.actionDate}" />
-        <h:form id="form">
-            <h:selectOneMenu value="#{today.toDoToAddId}">
-                Available todos <f:selectItems value="#{today.availableToDos}" var="todo" itemLabel="#{todo.description}" itemValue="#{todo.id}"/>
-            </h:selectOneMenu>
-            <h:commandButton id="save" action="#{today.addToDoToCurrentList}" value="Add ToDo" />
-        </h:form>
-    </h:body>
+	<a href="activities.jsf">Activity inventory</a>
+	<br></br>
+        ToDos for <h:outputText
+		value="#{today.todayToDoList.actionDate}" />
+	<h:form id="form">
+		<h:selectOneMenu value="#{today.toDoToAddId}">
+                Available todos <f:selectItems
+				value="#{today.availableToDos}" var="todo"
+				itemLabel="#{todo.description}" itemValue="#{todo.id}" />
+		</h:selectOneMenu>
+		<h:commandButton id="save" action="#{today.addToDoToCurrentList}"
+			value="Add ToDo" />
+
+
+		<p></p>
+		<h:dataTable value="#{today.currentToDos}" var="todo" border="1">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{todo.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+				<h:outputText value="#{todo.description}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Estimate" />
+				</f:facet>
+				<h:outputText value="#{todo.estimate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Finished" />
+				</f:facet>
+				<h:outputText value="#{todo.finished}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Remove" />
+				</f:facet>
+				<h:commandLink id="delete" action="#{today.removeFromList}"
+					value="Remove" />
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+</h:body>
 </html>

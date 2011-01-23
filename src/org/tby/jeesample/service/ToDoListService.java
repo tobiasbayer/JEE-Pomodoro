@@ -1,5 +1,6 @@
 package org.tby.jeesample.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,5 +88,17 @@ public class ToDoListService {
         ToDoList list = find(aList.getId());
         list.addToDo(todo);
         update(list);
+    }
+
+    public List<ToDo> getToDosForList(ToDoList aList) {
+        return new ArrayList<ToDo>(find(aList.getId()).getToDo());
+    }
+
+    public void removeFromList(ToDoList aCurrentToDoList, ToDo aToDo) {
+        ToDoList currentToDoList = mEntityManager.merge(aCurrentToDoList);
+        ToDo toDo = mEntityManager.merge(aToDo);
+
+        currentToDoList.getToDo().remove(toDo);
+        mEntityManager.merge(currentToDoList);
     }
 }

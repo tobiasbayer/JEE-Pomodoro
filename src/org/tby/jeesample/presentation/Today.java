@@ -27,24 +27,33 @@ public class Today implements Serializable {
     @Inject
     private ToDoService mToDoService;
 
-    private DataModel<ToDoList> mDataModel;
-
     private ToDoList mCurrentToDoList;
 
     private Long mToDoToAddId;
 
+    private DataModel<ToDo> mCurrentToDos;
+
     @PostConstruct
     public void init() {
+        mCurrentToDoList = getTodayToDoList();
         reload();
     }
 
-    public DataModel<ToDoList> getToDos() {
-        return mDataModel;
+    public void reload() {
+        mCurrentToDos = new ListDataModel<ToDo>();
+        if (mCurrentToDoList != null) {
+            mCurrentToDos.setWrappedData(mToDoListService.getToDosForList(mCurrentToDoList));
+        }
     }
 
-    public void reload() {
-        mDataModel = new ListDataModel<ToDoList>();
-        mDataModel.setWrappedData(mToDoListService.findAll());
+    public void removeFromList() {
+        ToDo todo = mCurrentToDos.getRowData();
+        mToDoListService.removeFromList(mCurrentToDoList, todo);
+        reload();
+    }
+
+    public DataModel<ToDo> getCurrentToDos() {
+        return mCurrentToDos;
     }
 
     public ToDoList getCurrentToDoList() {
