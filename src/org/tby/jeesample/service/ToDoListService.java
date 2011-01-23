@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.joda.time.DateTime;
 import org.tby.jeesample.model.SystemUser;
 import org.tby.jeesample.model.ToDoList;
 
@@ -21,9 +22,10 @@ public class ToDoListService {
     private EntityManager mEntityManager;
 
     public ToDoList create(Date aDay) {
-        // TODO narrow down aDay to date accuracy
+        DateTime dt = new DateTime(aDay);
+        dt.toDateMidnight();
         ToDoList toDoList = new ToDoList();
-        toDoList.setActionDate(aDay);
+        toDoList.setActionDate(dt.toDateMidnight().toDate());
 
         return toDoList;
     }
@@ -61,13 +63,14 @@ public class ToDoListService {
         return mEntityManager.createQuery(query).getResultList();
     }
 
-    public ToDoList findByDay(Date aDate) {
-        // TODO narrow down date to day precision
+    public ToDoList findByDay(Date aDay) {
+        DateTime dt = new DateTime(aDay);
+        dt.toDateMidnight();
         CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
         CriteriaQuery<ToDoList> query = cb.createQuery(ToDoList.class);
         Root<ToDoList> root = query.from(ToDoList.class);
         query.select(root);
-        Predicate restriction = cb.equal(root.get("actionDate"), aDate);
+        Predicate restriction = cb.equal(root.get("actionDate"), dt.toDateMidnight().toDate());
         query.where(restriction);
         List<ToDoList> resultList = mEntityManager.createQuery(query).getResultList();
         return resultList.size() > 0 ? resultList.get(0) : null;
