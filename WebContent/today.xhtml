@@ -10,16 +10,12 @@
         <br></br>
         <a href="activities.jsf">Activity inventory</a>
         <br></br>
-        ToDos for <h:outputText id="description-text" value="#{today.todayToDoList.actionDate}" />
+        ToDos for <h:outputText value="#{today.todayToDoList.actionDate}" />
         <h:form id="form">
-
-            <h:panelGrid columns="2">
-
-
-            </h:panelGrid>
-
+            <h:selectOneMenu value="#{today.toDoToAddId}">
+                Available todos <f:selectItems value="#{today.availableToDos}" var="todo" itemLabel="#{todo.description}" itemValue="#{todo.id}"/>
+            </h:selectOneMenu>
+            <h:commandButton id="save" action="#{today.addToDoToCurrentList}" value="Add ToDo" />
         </h:form>
-
     </h:body>
-
 </html>

@@ -44,6 +44,7 @@ public class ToDoService {
     }
 
     public List<ToDo> findAll() {
+        // TODO find only for the current user
         CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
         CriteriaQuery<ToDo> query = cb.createQuery(ToDo.class);
         query.select(query.from(ToDo.class));

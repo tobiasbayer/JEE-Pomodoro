@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.Root;
 
 import org.joda.time.DateTime;
 import org.tby.jeesample.model.SystemUser;
+import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.model.ToDoList;
 
 @Stateless
@@ -20,6 +22,9 @@ public class ToDoListService {
 
     @PersistenceContext
     private EntityManager mEntityManager;
+
+    @Inject
+    private ToDoService mToDoService;
 
     public ToDoList create(Date aDay) {
         DateTime dt = new DateTime(aDay);
@@ -57,6 +62,7 @@ public class ToDoListService {
     }
 
     public List<ToDoList> findAll() {
+        // TODO find only for the current user
         CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
         CriteriaQuery<ToDoList> query = cb.createQuery(ToDoList.class);
         query.select(query.from(ToDoList.class));
@@ -74,5 +80,12 @@ public class ToDoListService {
         query.where(restriction);
         List<ToDoList> resultList = mEntityManager.createQuery(query).getResultList();
         return resultList.size() > 0 ? resultList.get(0) : null;
+    }
+
+    public void addToDoToList(ToDo aToDo, ToDoList aList) {
+        ToDo todo = mToDoService.find(aToDo.getId());
+        ToDoList list = find(aList.getId());
+        list.addToDo(todo);
+        update(list);
     }
 }
