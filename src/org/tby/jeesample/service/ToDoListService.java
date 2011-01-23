@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,9 +22,6 @@ public class ToDoListService {
 
     @PersistenceContext
     private EntityManager mEntityManager;
-
-    @Inject
-    private ToDoService mToDoService;
 
     public ToDoList create(Date aDay) {
         DateTime dt = new DateTime(aDay);
@@ -84,14 +80,14 @@ public class ToDoListService {
     }
 
     public void addToDoToList(ToDo aToDo, ToDoList aList) {
-        ToDo todo = mToDoService.find(aToDo.getId());
-        ToDoList list = find(aList.getId());
+        ToDo todo = mEntityManager.merge(aToDo);
+        ToDoList list = mEntityManager.merge(aList);
         list.addToDo(todo);
         update(list);
     }
 
     public List<ToDo> getToDosForList(ToDoList aList) {
-        return new ArrayList<ToDo>(find(aList.getId()).getToDo());
+        return new ArrayList<ToDo>(mEntityManager.merge(aList).getToDo());
     }
 
     public void removeFromList(ToDoList aCurrentToDoList, ToDo aToDo) {
