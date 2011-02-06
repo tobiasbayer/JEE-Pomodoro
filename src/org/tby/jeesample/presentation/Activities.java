@@ -18,11 +18,11 @@ import org.tby.jeesample.service.ToDoService;
 public class Activities implements Serializable {
 
     @Inject
-    private ToDoService mToDoService;
+    private ToDoService toDoService;
 
-    private DataModel<ToDo> mDataModel;
+    private DataModel<ToDo> dataModel;
 
-    private ToDo mCurrentToDo;
+    private ToDo currentToDo;
 
     @PostConstruct
     public void init() {
@@ -30,34 +30,34 @@ public class Activities implements Serializable {
     }
 
     public DataModel<ToDo> getToDos() {
-        return mDataModel;
+        return dataModel;
     }
 
     public void reload() {
-        mDataModel = new ListDataModel<ToDo>();
-        mDataModel.setWrappedData(mToDoService.findAll());
+        dataModel = new ListDataModel<ToDo>();
+        dataModel.setWrappedData(toDoService.findAll());
     }
 
     public String create() {
-        mCurrentToDo = mToDoService.create();
+        currentToDo = toDoService.create();
         return Pages.EDIT_TODO;
     }
 
     public String delete() {
-        ToDo todo = mDataModel.getRowData();
-        mToDoService.delete(todo);
+        ToDo todo = dataModel.getRowData();
+        toDoService.delete(todo);
         reload();
         return Pages.ACTIVITIES;
     }
 
     public String edit() {
-        mCurrentToDo = mDataModel.getRowData();
+        currentToDo = dataModel.getRowData();
         reload();
         return Pages.EDIT_TODO;
     }
 
     public String save() {
-        mToDoService.update(mCurrentToDo);
+        toDoService.update(currentToDo);
         reload();
         return Pages.ACTIVITIES;
     }
@@ -68,10 +68,10 @@ public class Activities implements Serializable {
     }
 
     public ToDo getCurrentToDo() {
-        return mCurrentToDo;
+        return currentToDo;
     }
 
     public void setCurrentToDo(ToDo aCurrentToDo) {
-        mCurrentToDo = aCurrentToDo;
+        currentToDo = aCurrentToDo;
     }
 }

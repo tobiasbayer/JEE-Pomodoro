@@ -23,84 +23,84 @@ import org.tby.jeesample.service.ToDoService;
 public class Today implements Serializable {
 
     @Inject
-    private ToDoListService mToDoListService;
+    private ToDoListService toDoListService;
 
     @Inject
-    private ToDoService mToDoService;
+    private ToDoService toDoService;
 
     @Inject
-    private PomodoroService mPomodoroService;
+    private PomodoroService pomodoroService;
 
-    private ToDoList mCurrentToDoList;
+    private ToDoList currentToDoList;
 
-    private Long mToDoToAddId;
+    private Long toDoToAddId;
 
-    private DataModel<ToDo> mCurrentToDos;
+    private DataModel<ToDo> currentToDos;
 
     @PostConstruct
     public void init() {
-        mCurrentToDoList = getTodayToDoList();
+        currentToDoList = getTodayToDoList();
         reload();
     }
 
     public void reload() {
-        mCurrentToDos = new ListDataModel<ToDo>();
-        if (mCurrentToDoList != null) {
-            mCurrentToDos.setWrappedData(mToDoListService.getToDosForList(mCurrentToDoList));
+        currentToDos = new ListDataModel<ToDo>();
+        if (currentToDoList != null) {
+            currentToDos.setWrappedData(toDoListService.getToDosForList(currentToDoList));
         }
     }
 
     public void removeFromList() {
-        ToDo todo = mCurrentToDos.getRowData();
-        mToDoListService.removeFromList(mCurrentToDoList, todo);
+        ToDo todo = currentToDos.getRowData();
+        toDoListService.removeFromList(currentToDoList, todo);
         reload();
     }
 
     public DataModel<ToDo> getCurrentToDos() {
-        return mCurrentToDos;
+        return currentToDos;
     }
 
     public ToDoList getCurrentToDoList() {
-        return mCurrentToDoList;
+        return currentToDoList;
     }
 
     public void setCurrentToDoList(ToDoList aCurrentToDoList) {
-        mCurrentToDoList = aCurrentToDoList;
+        currentToDoList = aCurrentToDoList;
     }
 
     public ToDoList getTodayToDoList() {
         Date now = new Date();
-        ToDoList toDoList = mToDoListService.findByDay(now);
+        ToDoList toDoList = toDoListService.findByDay(now);
         if (toDoList == null) {
-            toDoList = mToDoListService.create(now);
-            mToDoListService.save(toDoList);
+            toDoList = toDoListService.create(now);
+            toDoListService.save(toDoList);
         }
 
-        mCurrentToDoList = toDoList;
+        currentToDoList = toDoList;
         return toDoList;
     }
 
     public List<ToDo> getAvailableToDos() {
-        return mToDoService.findAll();
+        return toDoService.findAll();
     }
 
     public void addToDoToCurrentList() {
-        ToDo todo = mToDoService.find(getToDoToAddId());
-        mToDoListService.addToDoToList(todo, mCurrentToDoList);
+        ToDo todo = toDoService.find(getToDoToAddId());
+        toDoListService.addToDoToList(todo, currentToDoList);
         reload();
     }
 
     public void setToDoToAddId(Long aToDoToAddId) {
-        mToDoToAddId = aToDoToAddId;
+        toDoToAddId = aToDoToAddId;
     }
 
     public Long getToDoToAddId() {
-        return mToDoToAddId;
+        return toDoToAddId;
     }
 
     public void addPomodoro() {
-        ToDo todo = mCurrentToDos.getRowData();
-        mToDoService.addPomodoro(todo, mPomodoroService.create());
+        ToDo todo = currentToDos.getRowData();
+        toDoService.addPomodoro(todo, pomodoroService.create());
         reload();
     }
 }
