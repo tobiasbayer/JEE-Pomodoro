@@ -75,7 +75,7 @@ public class ToDoService {
 
             @Override
             public int compare(Pomodoro aP1, Pomodoro aP2) {
-                return aP1.getAddDate().compareTo(aP2.getAddDate());
+                return aP2.getAddDate().compareTo(aP1.getAddDate());
             }
         });
 
