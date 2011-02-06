@@ -45,25 +45,20 @@ public class Today implements Serializable {
     @PostConstruct
     public void init() {
         currentToDoList = getTodayToDoList();
-        reload();
     }
 
-    public void reload() {
+    public void removeFromList() {
+        ToDo todo = currentToDos.getRowData();
+        toDoListService.removeFromList(currentToDoList, todo);
+    }
+
+    public DataModel<ToDo> getCurrentToDos() {
         currentToDos = new ListDataModel<ToDo>();
         if (currentToDoList != null) {
             List<ToDo> displayList = new ArrayList<ToDo>(toDoListService.getToDosForList(currentToDoList));
             Collections.sort(displayList, new EntityIdComparator());
             currentToDos.setWrappedData(displayList);
         }
-    }
-
-    public void removeFromList() {
-        ToDo todo = currentToDos.getRowData();
-        toDoListService.removeFromList(currentToDoList, todo);
-        reload();
-    }
-
-    public DataModel<ToDo> getCurrentToDos() {
         return currentToDos;
     }
 
@@ -94,7 +89,6 @@ public class Today implements Serializable {
     public void addToDoToCurrentList() {
         ToDo todo = toDoService.find(getToDoToAddId());
         toDoListService.addToDoToList(todo, currentToDoList);
-        reload();
     }
 
     public void setToDoToAddId(Long aToDoToAddId) {
@@ -108,19 +102,16 @@ public class Today implements Serializable {
     public void startPomodoro() {
         ToDo todo = currentToDos.getRowData();
         toDoService.addPomodoro(todo, pomodoroService.create());
-        reload();
     }
 
     public void finishCurrentPomodoro() {
         ToDo todo = currentToDos.getRowData();
         toDoService.finishCurrentPomodoro(todo);
-        reload();
     }
 
     public void voidCurrentPomodoro() {
         ToDo todo = currentToDos.getRowData();
         toDoService.voidCurrentPomodoro(todo);
-        reload();
     }
 
     public String getPomodoroState() {
@@ -155,6 +146,10 @@ public class Today implements Serializable {
 
     public String getNumberOfVoidPomodoros() {
         return String.valueOf(toDoService.getNumberOfVoidPomodoros(currentToDos.getRowData()));
+    }
+
+    public String getTotalEstimate() {
+        return String.valueOf(toDoListService.getTotalEstimate(currentToDoList));
     }
 
     private String getInterrupts(Pomodoro pomodoro) {

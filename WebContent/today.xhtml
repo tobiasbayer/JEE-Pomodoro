@@ -40,6 +40,11 @@
 					<h:outputText value="Estimate" />
 				</f:facet>
 				<h:outputText value="#{todo.estimate}" />
+				
+				<f:facet name="footer">
+                    <h:outputText value="#{today.totalEstimate}" />
+                </f:facet>
+                
 			</h:column>
 			<h:column>
 				<f:facet name="header">

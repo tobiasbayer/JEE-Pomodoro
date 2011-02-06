@@ -97,4 +97,14 @@ public class ToDoListService {
         currentToDoList.getToDo().remove(toDo);
         entityManager.merge(currentToDoList);
     }
+
+    public int getTotalEstimate(ToDoList currentToDoList) {
+        ToDoList list = entityManager.merge(currentToDoList);
+        int estimate = 0;
+        for (ToDo todo : list.getToDo()) {
+            estimate += todo.getEstimate();
+        }
+
+        return estimate;
+    }
 }
