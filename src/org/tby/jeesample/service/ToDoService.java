@@ -90,6 +90,14 @@ public class ToDoService {
         }
     }
 
+    public void voidCurrentPomodoro(ToDo aToDo) {
+        ToDo todo = entityManager.merge(aToDo);
+        Pomodoro latestPomodoro = getLatestPomodoro(todo);
+        if (latestPomodoro != null) {
+            latestPomodoro.setVoidPomodoro(true);
+        }
+    }
+
     public void addExternalInterrupt(ToDo aToDo) {
         ToDo todo = entityManager.merge(aToDo);
         Pomodoro latestPomodoro = getLatestPomodoro(todo);
@@ -104,5 +112,27 @@ public class ToDoService {
         if (latestPomodoro != null) {
             latestPomodoro.setInternalInterrupts(latestPomodoro.getInternalInterrupts() + 1);
         }
+    }
+
+    public int getNumberOfFinishedPomodoros(ToDo aToDo) {
+        int number = 0;
+        ToDo todo = entityManager.merge(aToDo);
+        for (Pomodoro p : todo.getPomodoro()) {
+            if (p.isFinished()) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    public int getNumberOfVoidPomodoros(ToDo aToDo) {
+        int number = 0;
+        ToDo todo = entityManager.merge(aToDo);
+        for (Pomodoro p : todo.getPomodoro()) {
+            if (p.isVoidPomodoro()) {
+                number++;
+            }
+        }
+        return number;
     }
 }

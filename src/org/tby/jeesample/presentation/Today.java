@@ -111,6 +111,12 @@ public class Today implements Serializable {
         reload();
     }
 
+    public void voidCurrentPomodoro() {
+        ToDo todo = currentToDos.getRowData();
+        toDoService.voidCurrentPomodoro(todo);
+        reload();
+    }
+
     public String getPomodoroState() {
         String state = "";
         ToDo toDo = currentToDos.getRowData();
@@ -135,6 +141,14 @@ public class Today implements Serializable {
 
     public void addInternalInterrupt() {
         toDoService.addInternalInterrupt(currentToDos.getRowData());
+    }
+
+    public String getNumberOfFinishedPomodoros() {
+        return String.valueOf(toDoService.getNumberOfFinishedPomodoros(currentToDos.getRowData()));
+    }
+
+    public String getNumberOfVoidPomodoros() {
+        return String.valueOf(toDoService.getNumberOfVoidPomodoros(currentToDos.getRowData()));
     }
 
     private String getInterrupts(Pomodoro pomodoro) {

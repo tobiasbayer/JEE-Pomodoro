@@ -54,6 +54,8 @@
                 </f:facet>
                 
                 <h:outputText value="#{today.pomodoroState}" /><br></br>
+                Finished Pomodoros: <h:outputText value="#{today.numberOfFinishedPomodoros}" /><br></br>
+                Void Pomodoros: <h:outputText value="#{today.numberOfVoidPomodoros}" /><br></br>
                 
                 <h:commandLink id="addPomodoro" action="#{today.startPomodoro}"
                     value="Start Pomodoro" /><br></br>
