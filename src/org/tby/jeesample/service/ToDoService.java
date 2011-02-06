@@ -2,7 +2,6 @@ package org.tby.jeesample.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +14,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.tby.jeesample.model.Pomodoro;
 import org.tby.jeesample.model.SystemUser;
 import org.tby.jeesample.model.ToDo;
+
+import com.tby.jeesample.common.PomodoroAddDateComparator;
 
 @Stateless
 public class ToDoService {
@@ -71,13 +72,7 @@ public class ToDoService {
         }
 
         // Sort pomodoros by add date
-        Collections.sort(pomodoroList, new Comparator<Pomodoro>() {
-
-            @Override
-            public int compare(Pomodoro aP1, Pomodoro aP2) {
-                return aP2.getAddDate().compareTo(aP1.getAddDate());
-            }
-        });
+        Collections.sort(pomodoroList, new PomodoroAddDateComparator());
 
         return pomodoroList.get(0);
     }
