@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Pomodoro {
+public class Pomodoro implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

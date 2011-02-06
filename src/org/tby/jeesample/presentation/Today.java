@@ -1,6 +1,8 @@
 package org.tby.jeesample.presentation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import org.tby.jeesample.model.ToDoList;
 import org.tby.jeesample.service.PomodoroService;
 import org.tby.jeesample.service.ToDoListService;
 import org.tby.jeesample.service.ToDoService;
+
+import com.tby.jeesample.common.EntityIdComparator;
 
 @SuppressWarnings("serial")
 @Named
@@ -47,7 +51,9 @@ public class Today implements Serializable {
     public void reload() {
         currentToDos = new ListDataModel<ToDo>();
         if (currentToDoList != null) {
-            currentToDos.setWrappedData(toDoListService.getToDosForList(currentToDoList));
+            List<ToDo> displayList = new ArrayList<ToDo>(toDoListService.getToDosForList(currentToDoList));
+            Collections.sort(displayList, new EntityIdComparator());
+            currentToDos.setWrappedData(displayList);
         }
     }
 

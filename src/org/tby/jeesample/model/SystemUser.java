@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class SystemUser {
+public class SystemUser implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

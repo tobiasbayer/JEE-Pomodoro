@@ -71,7 +71,6 @@ public class ToDoService {
             return null;
         }
 
-        // Sort pomodoros by add date
         Collections.sort(pomodoroList, new PomodoroAddDateComparator());
 
         return pomodoroList.get(0);
