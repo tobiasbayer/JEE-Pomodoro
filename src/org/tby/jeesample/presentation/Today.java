@@ -120,13 +120,37 @@ public class Today implements Serializable {
             state = "No Pomodoros";
         }
         else if (!latestPomodoro.isFinished() && !latestPomodoro.isVoidPomodoro()) {
-            state = "Pomodoro running...";
+            state = "Pomodoro running...: " + getInterrupts(latestPomodoro);
         }
         else if (latestPomodoro.isFinished()) {
-            state = "Pomodoro finished.";
+            state = "Pomodoro finished: " + getInterrupts(latestPomodoro);
         }
 
         return state;
+    }
 
+    public void addExternalInterrupt() {
+        toDoService.addExternalInterrupt(currentToDos.getRowData());
+    }
+
+    public void addInternalInterrupt() {
+        toDoService.addInternalInterrupt(currentToDos.getRowData());
+    }
+
+    private String getInterrupts(Pomodoro pomodoro) {
+        if (pomodoro == null) {
+            return "";
+        }
+
+        StringBuffer interrupts = new StringBuffer();
+        for (int i = 0; i < pomodoro.getExternalInterrupts(); i++) {
+            interrupts.append("X");
+        }
+
+        for (int i = 0; i < pomodoro.getInternalInterrupts(); i++) {
+            interrupts.append("-");
+        }
+
+        return interrupts.toString();
     }
 }

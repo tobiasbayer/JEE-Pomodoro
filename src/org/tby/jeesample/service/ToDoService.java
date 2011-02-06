@@ -89,4 +89,20 @@ public class ToDoService {
             latestPomodoro.setFinished(true);
         }
     }
+
+    public void addExternalInterrupt(ToDo aToDo) {
+        ToDo todo = entityManager.merge(aToDo);
+        Pomodoro latestPomodoro = getLatestPomodoro(todo);
+        if (latestPomodoro != null) {
+            latestPomodoro.setExternalInterrupts(latestPomodoro.getExternalInterrupts() + 1);
+        }
+    }
+
+    public void addInternalInterrupt(ToDo aToDo) {
+        ToDo todo = entityManager.merge(aToDo);
+        Pomodoro latestPomodoro = getLatestPomodoro(todo);
+        if (latestPomodoro != null) {
+            latestPomodoro.setInternalInterrupts(latestPomodoro.getInternalInterrupts() + 1);
+        }
+    }
 }
