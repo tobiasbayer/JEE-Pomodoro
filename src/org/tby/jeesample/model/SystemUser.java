@@ -9,48 +9,48 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class SystemUser {
 
-    private Long mId;
-
-    private String mFullName;
-
-    private String mPassword;
-
-    private String mLogin;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotNull
+    private String fullName;
+
+    @NotNull
+    private String password;
+
+    @NotNull
+    private String login;
+
     public Long getId() {
-        return mId;
+        return id;
     }
 
-    public void setId(Long aId) {
-        mId = aId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @NotNull
     public String getFullName() {
-        return mFullName;
+        return fullName;
     }
 
-    public void setFullName(String aFullName) {
-        mFullName = aFullName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    @NotNull
     public String getPassword() {
-        return mPassword;
+        return password;
     }
 
-    public void setPassword(String aPassword) {
-        mPassword = aPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @NotNull
     public String getLogin() {
-        return mLogin;
+        return login;
     }
 
-    public void setLogin(String aLogin) {
-        mLogin = aLogin;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

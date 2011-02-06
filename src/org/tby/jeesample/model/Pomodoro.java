@@ -13,57 +13,58 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Pomodoro {
 
-    private Long mId;
-
-    private Date mAddDate;
-
-    private int mExternalInterrupts;
-
-    private Boolean mVoid;
-
-    private int mInternalInterrupts;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return mId;
-    }
-
-    public void setId(Long aId) {
-        mId = aId;
-    }
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    public Date getAddDate() {
-        return mAddDate;
+    private Date addDate;
+
+    private int externalInterrupts;
+
+    private boolean voidPomodoro;
+
+    private int internalInterrupts;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setAddDate(Date aAddDate) {
-        mAddDate = aAddDate;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 
     public int getExternalInterrupts() {
-        return mExternalInterrupts;
+        return externalInterrupts;
     }
 
-    public void setExternalInterrupts(int aExternalInterrupts) {
-        mExternalInterrupts = aExternalInterrupts;
-    }
-
-    public Boolean getVoid() {
-        return mVoid;
-    }
-
-    public void setVoid(Boolean aVoid) {
-        mVoid = aVoid;
+    public void setExternalInterrupts(int externalInterrupts) {
+        this.externalInterrupts = externalInterrupts;
     }
 
     public int getInternalInterrupts() {
-        return mInternalInterrupts;
+        return internalInterrupts;
     }
 
-    public void setInternalInterrupts(int aInternalInterrupts) {
-        mInternalInterrupts = aInternalInterrupts;
+    public void setInternalInterrupts(int internalInterrupts) {
+        this.internalInterrupts = internalInterrupts;
     }
+
+    public boolean isVoidPomodoro() {
+        return voidPomodoro;
+    }
+
+    public void setVoidPomodoro(boolean voidPomodoro) {
+        this.voidPomodoro = voidPomodoro;
+    }
+
 }

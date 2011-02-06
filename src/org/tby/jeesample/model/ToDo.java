@@ -16,79 +16,74 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class ToDo {
 
-    private Long mId;
-
-    private String mDescription;
-
-    private int mEstimate;
-
-    private boolean mFinished;
-
-    private Set<Pomodoro> mPomodoro = new HashSet<Pomodoro>();
-
-    private SystemUser mOwner;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return mId;
-    }
-
-    public void setId(Long aId) {
-        mId = aId;
-    }
+    private Long id;
 
     @NotNull
-    public String getDescription() {
-        return mDescription;
+    private String description;
+
+    private int estimate;
+
+    private boolean finished;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Pomodoro> pomodoro = new HashSet<Pomodoro>();
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @NotNull
+    private SystemUser owner;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setDescription(String aDescription) {
-        mDescription = aDescription;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getEstimate() {
-        return mEstimate;
+        return estimate;
     }
 
-    public void setEstimate(int aEstimate) {
-        mEstimate = aEstimate;
+    public void setEstimate(int estimate) {
+        this.estimate = estimate;
     }
 
-    public boolean getFinished() {
-        return mFinished;
+    public boolean isFinished() {
+        return finished;
     }
 
-    public void setFinished(boolean aFinished) {
-        mFinished = aFinished;
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     public Set<Pomodoro> getPomodoro() {
-        return mPomodoro;
+        return pomodoro;
     }
 
-    public void setPomodoro(Set<Pomodoro> aPomodoro) {
-        mPomodoro = aPomodoro;
+    public void setPomodoro(Set<Pomodoro> pomodoro) {
+        this.pomodoro = pomodoro;
     }
 
-    public void addPomodoro(Set<Pomodoro> aPomodoro) {
-        for (Pomodoro newElement : aPomodoro) {
-            mPomodoro.add(newElement);
-        }
+    public void addPomodoro(Pomodoro pomodoro) {
+        this.pomodoro.add(pomodoro);
     }
 
-    public void addPomodoro(Pomodoro aPomodoro) {
-        mPomodoro.add(aPomodoro);
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @NotNull
     public SystemUser getOwner() {
-        return mOwner;
+        return owner;
     }
 
-    public void setOwner(SystemUser aOwner) {
-        mOwner = aOwner;
+    public void setOwner(SystemUser owner) {
+        this.owner = owner;
     }
+
 }

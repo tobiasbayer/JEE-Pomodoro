@@ -19,60 +19,55 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class ToDoList {
 
-    private Long mId;
-
-    private Date mActionDate;
-
-    private Set<ToDo> mToDo = new HashSet<ToDo>();
-
-    private SystemUser mOwner;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return mId;
-    }
-
-    public void setId(Long aId) {
-        mId = aId;
-    }
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    public Date getActionDate() {
-        return mActionDate;
-    }
+    private Date actionDate;
 
-    public void setActionDate(Date aActionDate) {
-        mActionDate = aActionDate;
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<ToDo> toDo = new HashSet<ToDo>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    public Set<ToDo> getToDo() {
-        return mToDo;
-    }
-
-    public void setToDo(Set<ToDo> aToDo) {
-        mToDo = aToDo;
-    }
-
-    public void addToDo(Set<ToDo> aToDo) {
-        for (ToDo newElement : aToDo) {
-            mToDo.add(newElement);
-        }
-    }
-
-    public void addToDo(ToDo aToDo) {
-        mToDo.add(aToDo);
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
-    public SystemUser getOwner() {
-        return mOwner;
+    private SystemUser owner;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setOwner(SystemUser aOwner) {
-        this.mOwner = aOwner;
+    public void setId(Long id) {
+        this.id = id;
     }
+
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+
+    public Set<ToDo> getToDo() {
+        return toDo;
+    }
+
+    public void setToDo(Set<ToDo> toDo) {
+        this.toDo = toDo;
+    }
+
+    public void addToDo(ToDo toDo) {
+        this.toDo.add(toDo);
+    }
+
+    public SystemUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(SystemUser owner) {
+        this.owner = owner;
+    }
+
 }
