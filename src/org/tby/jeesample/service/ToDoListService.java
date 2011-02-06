@@ -21,7 +21,7 @@ import org.tby.jeesample.model.ToDoList;
 public class ToDoListService {
 
     @PersistenceContext
-    private EntityManager mEntityManager;
+    private EntityManager entityManager;
 
     public ToDoList create(Date aDay) {
         DateTime dt = new DateTime(aDay);
@@ -33,12 +33,12 @@ public class ToDoListService {
     }
 
     public void delete(ToDoList aToDoList) {
-        ToDoList todoList = mEntityManager.merge(aToDoList);
-        mEntityManager.remove(todoList);
+        ToDoList todoList = entityManager.merge(aToDoList);
+        entityManager.remove(todoList);
     }
 
     public ToDoList find(Long aId) {
-        return mEntityManager.find(ToDoList.class, aId);
+        return entityManager.find(ToDoList.class, aId);
     }
 
     public void save(ToDoList aToDoList) {
@@ -51,50 +51,50 @@ public class ToDoListService {
             user.setPassword("Password");
             aToDoList.setOwner(user);
         }
-        mEntityManager.persist(aToDoList);
+        entityManager.persist(aToDoList);
     }
 
     public void update(ToDoList aToDoList) {
-        mEntityManager.merge(aToDoList);
+        entityManager.merge(aToDoList);
     }
 
     public List<ToDoList> findAll() {
         // TODO find only for the current user
-        CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ToDoList> query = cb.createQuery(ToDoList.class);
         query.select(query.from(ToDoList.class));
-        return mEntityManager.createQuery(query).getResultList();
+        return entityManager.createQuery(query).getResultList();
     }
 
     public ToDoList findByDay(Date aDay) {
         DateTime dt = new DateTime(aDay);
         dt.toDateMidnight();
-        CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ToDoList> query = cb.createQuery(ToDoList.class);
         Root<ToDoList> root = query.from(ToDoList.class);
         query.select(root);
         Predicate restriction = cb.equal(root.get("actionDate"), dt.toDateMidnight().toDate());
         query.where(restriction);
-        List<ToDoList> resultList = mEntityManager.createQuery(query).getResultList();
+        List<ToDoList> resultList = entityManager.createQuery(query).getResultList();
         return resultList.size() > 0 ? resultList.get(0) : null;
     }
 
     public void addToDoToList(ToDo aToDo, ToDoList aList) {
-        ToDo todo = mEntityManager.merge(aToDo);
-        ToDoList list = mEntityManager.merge(aList);
+        ToDo todo = entityManager.merge(aToDo);
+        ToDoList list = entityManager.merge(aList);
         list.addToDo(todo);
         update(list);
     }
 
     public List<ToDo> getToDosForList(ToDoList aList) {
-        return new ArrayList<ToDo>(mEntityManager.merge(aList).getToDo());
+        return new ArrayList<ToDo>(entityManager.merge(aList).getToDo());
     }
 
     public void removeFromList(ToDoList aCurrentToDoList, ToDo aToDo) {
-        ToDoList currentToDoList = mEntityManager.merge(aCurrentToDoList);
-        ToDo toDo = mEntityManager.merge(aToDo);
+        ToDoList currentToDoList = entityManager.merge(aCurrentToDoList);
+        ToDo toDo = entityManager.merge(aToDo);
 
         currentToDoList.getToDo().remove(toDo);
-        mEntityManager.merge(currentToDoList);
+        entityManager.merge(currentToDoList);
     }
 }

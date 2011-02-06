@@ -27,6 +27,8 @@ public class Pomodoro {
 
     private int internalInterrupts;
 
+    private boolean finished;
+
     public Long getId() {
         return id;
     }
@@ -65,6 +67,14 @@ public class Pomodoro {
 
     public void setVoidPomodoro(boolean voidPomodoro) {
         this.voidPomodoro = voidPomodoro;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 
 }

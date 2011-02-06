@@ -52,8 +52,23 @@
                 <f:facet name="header">
                     <h:outputText value="Pomodoro" />
                 </f:facet>
-                <h:commandLink id="addPomodoro" action="#{today.addPomodoro}"
-                    value="Add Pomodoro" />
+                
+                <h:outputText value="#{today.pomodoroState}" /><br></br>
+                
+                <h:commandLink id="addPomodoro" action="#{today.startPomodoro}"
+                    value="Start Pomodoro" /><br></br>
+                
+                <h:commandLink id="addInternalInterrupt" action="#{today.addInternalInterrupt}"
+                    value="Add internal interrupt" /><br></br>
+                
+                <h:commandLink id="addExternalInterrupt" action="#{today.addExternalInterrupt}"
+                    value="Add external interrupt" /><br></br>
+                
+                <h:commandLink id="finishPomodoro" action="#{today.finishCurrentPomodoro}"
+                    value="Finish Pomodoro" /><br></br>
+                
+                <h:commandLink id="voidPomodoro" action="#{today.voidCurrentPomodoro}"
+                    value="Void Pomodoro" /><br></br>
             </h:column>
 
 			<h:column>

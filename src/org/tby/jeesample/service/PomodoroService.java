@@ -15,33 +15,33 @@ import org.tby.jeesample.model.ToDoList;
 public class PomodoroService {
 
     @PersistenceContext
-    private EntityManager mEntityManager;
+    private EntityManager entityManager;
 
     public Pomodoro create() {
         return new Pomodoro();
     }
 
     public void delete(Pomodoro aPomodoro) {
-        Pomodoro pomodoro = mEntityManager.merge(aPomodoro);
-        mEntityManager.remove(pomodoro);
+        Pomodoro pomodoro = entityManager.merge(aPomodoro);
+        entityManager.remove(pomodoro);
     }
 
     public ToDoList find(Long aId) {
-        return mEntityManager.find(ToDoList.class, aId);
+        return entityManager.find(ToDoList.class, aId);
     }
 
     public void save(Pomodoro aPomodoro) {
-        mEntityManager.persist(aPomodoro);
+        entityManager.persist(aPomodoro);
     }
 
     public void update(Pomodoro aPomodoro) {
-        mEntityManager.merge(aPomodoro);
+        entityManager.merge(aPomodoro);
     }
 
     public List<Pomodoro> findAll() {
-        CriteriaBuilder cb = mEntityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pomodoro> query = cb.createQuery(Pomodoro.class);
         query.select(query.from(Pomodoro.class));
-        return mEntityManager.createQuery(query).getResultList();
+        return entityManager.createQuery(query).getResultList();
     }
 }

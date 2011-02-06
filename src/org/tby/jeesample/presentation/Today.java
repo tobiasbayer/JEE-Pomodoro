@@ -11,6 +11,7 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.tby.jeesample.model.Pomodoro;
 import org.tby.jeesample.model.ToDo;
 import org.tby.jeesample.model.ToDoList;
 import org.tby.jeesample.service.PomodoroService;
@@ -98,9 +99,34 @@ public class Today implements Serializable {
         return toDoToAddId;
     }
 
-    public void addPomodoro() {
+    public void startPomodoro() {
         ToDo todo = currentToDos.getRowData();
         toDoService.addPomodoro(todo, pomodoroService.create());
         reload();
+    }
+
+    public void finishCurrentPomodoro() {
+        ToDo todo = currentToDos.getRowData();
+        toDoService.finishCurrentPomodoro(todo);
+        reload();
+    }
+
+    public String getPomodoroState() {
+        String state = "";
+        ToDo toDo = currentToDos.getRowData();
+        Pomodoro latestPomodoro = toDoService.getLatestPomodoro(toDo);
+
+        if (latestPomodoro == null) {
+            state = "No Pomodoros";
+        }
+        else if (!latestPomodoro.isFinished() && !latestPomodoro.isVoidPomodoro()) {
+            state = "Pomodoro running...";
+        }
+        else if (latestPomodoro.isFinished()) {
+            state = "Pomodoro finished.";
+        }
+
+        return state;
+
     }
 }
