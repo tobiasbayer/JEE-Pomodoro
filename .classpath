@@ -20,5 +20,5 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jstl-api-1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jstl-impl-1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.5-RC1.jar"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
