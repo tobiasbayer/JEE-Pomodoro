@@ -11,5 +11,4 @@ public class Application extends WebApplication {
     public Class<? extends Page> getHomePage() {
         return Today.class;
     }
-
 }

@@ -1,4 +1,4 @@
-package org.tby.jeesample.presentation;
+package com.tby.jeesample.presentation;
 
 public class Pages {
     public static final String ACTIVITIES = "activities.xhtml";

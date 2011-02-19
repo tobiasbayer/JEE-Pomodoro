@@ -1,4 +1,4 @@
-package org.tby.jeesample.model;
+package com.tby.jeesample.model;
 
 public interface IEntity {
     public Long getId();

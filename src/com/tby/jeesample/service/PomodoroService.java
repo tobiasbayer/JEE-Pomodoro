@@ -1,4 +1,4 @@
-package org.tby.jeesample.service;
+package com.tby.jeesample.service;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.tby.jeesample.model.Pomodoro;
-import org.tby.jeesample.model.ToDoList;
+import com.tby.jeesample.model.Pomodoro;
+import com.tby.jeesample.model.ToDoList;
 
 @Stateless
 public class PomodoroService {

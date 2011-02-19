@@ -1,4 +1,4 @@
-package org.tby.jeesample.service;
+package com.tby.jeesample.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,11 +11,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.tby.jeesample.model.Pomodoro;
-import org.tby.jeesample.model.SystemUser;
-import org.tby.jeesample.model.ToDo;
 
 import com.tby.jeesample.common.PomodoroAddDateComparator;
+import com.tby.jeesample.model.Pomodoro;
+import com.tby.jeesample.model.SystemUser;
+import com.tby.jeesample.model.ToDo;
 
 @Stateless
 public class ToDoService {

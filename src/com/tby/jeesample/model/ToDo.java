@@ -1,4 +1,4 @@
-package org.tby.jeesample.model;
+package com.tby.jeesample.model;
 
 import java.util.HashSet;
 import java.util.Set;

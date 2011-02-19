@@ -1,4 +1,4 @@
-package org.tby.jeesample.service;
+package com.tby.jeesample.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,9 +13,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.joda.time.DateTime;
-import org.tby.jeesample.model.SystemUser;
-import org.tby.jeesample.model.ToDo;
-import org.tby.jeesample.model.ToDoList;
+
+import com.tby.jeesample.model.SystemUser;
+import com.tby.jeesample.model.ToDo;
+import com.tby.jeesample.model.ToDoList;
 
 @Stateless
 public class ToDoListService {

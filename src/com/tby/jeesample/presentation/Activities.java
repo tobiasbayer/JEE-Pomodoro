@@ -1,4 +1,4 @@
-package org.tby.jeesample.presentation;
+package com.tby.jeesample.presentation;
 
 import java.io.Serializable;
 
@@ -9,8 +9,9 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.tby.jeesample.model.ToDo;
-import org.tby.jeesample.service.ToDoService;
+
+import com.tby.jeesample.model.ToDo;
+import com.tby.jeesample.service.ToDoService;
 
 @SuppressWarnings("serial")
 @Named

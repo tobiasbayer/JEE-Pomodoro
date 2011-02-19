@@ -1,4 +1,4 @@
-package org.tby.jeesample.presentation;
+package com.tby.jeesample.presentation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,14 +13,14 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.tby.jeesample.model.Pomodoro;
-import org.tby.jeesample.model.ToDo;
-import org.tby.jeesample.model.ToDoList;
-import org.tby.jeesample.service.PomodoroService;
-import org.tby.jeesample.service.ToDoListService;
-import org.tby.jeesample.service.ToDoService;
 
 import com.tby.jeesample.common.EntityIdComparator;
+import com.tby.jeesample.model.Pomodoro;
+import com.tby.jeesample.model.ToDo;
+import com.tby.jeesample.model.ToDoList;
+import com.tby.jeesample.service.PomodoroService;
+import com.tby.jeesample.service.ToDoListService;
+import com.tby.jeesample.service.ToDoService;
 
 @SuppressWarnings("serial")
 @Named

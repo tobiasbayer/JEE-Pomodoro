@@ -2,7 +2,7 @@ package com.tby.jeesample.common;
 
 import java.util.Comparator;
 
-import org.tby.jeesample.model.Pomodoro;
+import com.tby.jeesample.model.Pomodoro;
 
 public class PomodoroAddDateComparator implements Comparator<Pomodoro> {
 

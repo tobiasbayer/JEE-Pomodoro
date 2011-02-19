@@ -2,7 +2,7 @@ package com.tby.jeesample.common;
 
 import java.util.Comparator;
 
-import org.tby.jeesample.model.IEntity;
+import com.tby.jeesample.model.IEntity;
 
 public class EntityIdComparator implements Comparator<IEntity> {
 
