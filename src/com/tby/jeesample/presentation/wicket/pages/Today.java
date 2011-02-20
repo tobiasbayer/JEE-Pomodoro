@@ -75,6 +75,22 @@ public class Today extends WebPage {
                         toDoService.addExternalInterrupt(todo);
                     }
                 });
+
+                aItem.add(new Link("finishPomodoro") {
+
+                    @Override
+                    public void onClick() {
+                        toDoService.finishCurrentPomodoro(todo);
+                    }
+                });
+
+                aItem.add(new Link("voidPomodoro") {
+
+                    @Override
+                    public void onClick() {
+                        toDoService.voidCurrentPomodoro(todo);
+                    }
+                });
             }
 
         });
