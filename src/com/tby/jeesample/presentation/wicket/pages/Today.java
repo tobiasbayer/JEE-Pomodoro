@@ -75,6 +75,9 @@ public class Today extends WebPage {
         else if (latestPomodoro.isFinished()) {
             state = "Pomodoro finished: " + getInterrupts(latestPomodoro);
         }
+        else if (latestPomodoro.isVoidPomodoro()) {
+            state = "Pomodoro void: " + getInterrupts(latestPomodoro);
+        }
 
         return state;
     }
