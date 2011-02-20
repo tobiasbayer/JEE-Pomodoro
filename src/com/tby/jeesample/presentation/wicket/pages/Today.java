@@ -37,9 +37,7 @@ public class Today extends WebPage {
 
     public Today() {
 
-        currentToDoList = getTodayToDoList();
-        toDoListService.getToDosForList(currentToDoList);
-        currentToDos = new ArrayList<ToDo>(toDoListService.getToDosForList(currentToDoList));
+        reload();
 
         add(new ListView<ToDo>("todoList", new PropertyModel(this, "currentToDos")) {
 
@@ -91,9 +89,24 @@ public class Today extends WebPage {
                         toDoService.voidCurrentPomodoro(todo);
                     }
                 });
+
+                aItem.add(new Link("removeTodo") {
+
+                    @Override
+                    public void onClick() {
+                        toDoListService.removeFromList(currentToDoList, todo);
+                        reload();
+                    }
+                });
             }
 
         });
+    }
+
+    public void reload() {
+        currentToDoList = getTodayToDoList();
+        toDoListService.getToDosForList(currentToDoList);
+        currentToDos = new ArrayList<ToDo>(toDoListService.getToDosForList(currentToDoList));
     }
 
     public ToDoList getTodayToDoList() {
