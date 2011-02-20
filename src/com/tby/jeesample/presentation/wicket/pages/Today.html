@@ -1,6 +1,15 @@
 <html>
 	<body>
 		<h1>Today</h1>
+		<form wicket:id="addTodoForm">
+		  Available todos
+            <select wicket:id="todoToAdd">
+                <option>Todo 1</option>
+                <option>Todo 2</option>
+            </select>
+            <input type="submit" value="Add"/>
+        </form>
+
 		<table border="1">
 		  <thead>
 		      <tr>

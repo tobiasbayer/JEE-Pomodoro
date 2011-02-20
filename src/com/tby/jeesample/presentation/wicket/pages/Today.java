@@ -8,6 +8,9 @@ import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -38,6 +41,24 @@ public class Today extends WebPage {
     public Today() {
 
         reload();
+
+        Form form = new Form("addTodoForm");
+        add(form);
+
+        DropDownChoice<ToDo> addTodoChoice = new DropDownChoice<ToDo>("todoToAdd", toDoService.findAll(),
+                new IChoiceRenderer<ToDo>() {
+
+                    @Override
+                    public Object getDisplayValue(ToDo aToDo) {
+                        return aToDo.getDescription();
+                    }
+
+                    @Override
+                    public String getIdValue(ToDo aToDo, int arg1) {
+                        return String.valueOf(aToDo.getId());
+                    }
+                });
+        form.add(addTodoChoice);
 
         add(new ListView<ToDo>("todoList", new PropertyModel(this, "currentToDos")) {
 
