@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
@@ -15,6 +16,7 @@ import org.apache.wicket.model.PropertyModel;
 import com.tby.jeesample.model.Pomodoro;
 import com.tby.jeesample.model.ToDo;
 import com.tby.jeesample.model.ToDoList;
+import com.tby.jeesample.service.PomodoroService;
 import com.tby.jeesample.service.ToDoListService;
 import com.tby.jeesample.service.ToDoService;
 
@@ -25,6 +27,9 @@ public class Today extends WebPage {
 
     @Inject
     private ToDoService toDoService;
+
+    @Inject
+    private PomodoroService pomodoroService;
 
     private ToDoList currentToDoList;
 
@@ -40,13 +45,20 @@ public class Today extends WebPage {
 
             @Override
             protected void populateItem(ListItem<ToDo> aItem) {
-                ToDo todo = aItem.getModelObject();
+                final ToDo todo = aItem.getModelObject();
                 aItem.add(new Label("description", todo.getDescription()));
                 aItem.add(new Label("estimate", String.valueOf(todo.getEstimate())));
                 aItem.add(new Label("finished", String.valueOf(todo.isFinished())));
                 aItem.add(new Label("state", getPomodoroState(todo)));
                 aItem.add(new Label("finishedPomodoros", getNumberOfFinishedPomodoros(todo)));
                 aItem.add(new Label("voidPomodoros", getNumberOfVoidPomodoros(todo)));
+                aItem.add(new Link("addPomodoro") {
+
+                    @Override
+                    public void onClick() {
+                        toDoService.addPomodoro(todo, pomodoroService.create());
+                    }
+                });
             }
 
         });
