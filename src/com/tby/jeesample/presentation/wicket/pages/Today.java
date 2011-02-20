@@ -12,14 +12,19 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 
+import com.tby.jeesample.model.Pomodoro;
 import com.tby.jeesample.model.ToDo;
 import com.tby.jeesample.model.ToDoList;
 import com.tby.jeesample.service.ToDoListService;
+import com.tby.jeesample.service.ToDoService;
 
 public class Today extends WebPage {
 
     @Inject
     private ToDoListService toDoListService;
+
+    @Inject
+    private ToDoService toDoService;
 
     private ToDoList currentToDoList;
 
@@ -28,7 +33,8 @@ public class Today extends WebPage {
     public Today() {
 
         currentToDoList = getTodayToDoList();
-        currentToDos = new ArrayList<ToDo>(currentToDoList.getToDo());
+        toDoListService.getToDosForList(currentToDoList);
+        currentToDos = new ArrayList<ToDo>(toDoListService.getToDosForList(currentToDoList));
 
         add(new ListView<ToDo>("todoList", new PropertyModel(this, "currentToDos")) {
 
@@ -36,6 +42,9 @@ public class Today extends WebPage {
             protected void populateItem(ListItem<ToDo> aItem) {
                 ToDo todo = aItem.getModelObject();
                 aItem.add(new Label("description", todo.getDescription()));
+                aItem.add(new Label("estimate", String.valueOf(todo.getEstimate())));
+                aItem.add(new Label("finished", String.valueOf(todo.isFinished())));
+                aItem.add(new Label("state", getPomodoroState(todo)));
             }
 
         });
@@ -50,6 +59,41 @@ public class Today extends WebPage {
         }
 
         return toDoList;
+    }
+
+    private String getPomodoroState(ToDo aToDo) {
+        String state = "";
+        ToDo toDo = aToDo;
+        Pomodoro latestPomodoro = toDoService.getLatestPomodoro(toDo);
+
+        if (latestPomodoro == null) {
+            state = "No Pomodoros";
+        }
+        else if (!latestPomodoro.isFinished() && !latestPomodoro.isVoidPomodoro()) {
+            state = "Pomodoro running...: " + getInterrupts(latestPomodoro);
+        }
+        else if (latestPomodoro.isFinished()) {
+            state = "Pomodoro finished: " + getInterrupts(latestPomodoro);
+        }
+
+        return state;
+    }
+
+    private String getInterrupts(Pomodoro pomodoro) {
+        if (pomodoro == null) {
+            return "";
+        }
+
+        StringBuffer interrupts = new StringBuffer();
+        for (int i = 0; i < pomodoro.getExternalInterrupts(); i++) {
+            interrupts.append("X");
+        }
+
+        for (int i = 0; i < pomodoro.getInternalInterrupts(); i++) {
+            interrupts.append("-");
+        }
+
+        return interrupts.toString();
     }
 
 }
