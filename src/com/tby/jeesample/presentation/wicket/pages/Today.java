@@ -45,6 +45,8 @@ public class Today extends WebPage {
                 aItem.add(new Label("estimate", String.valueOf(todo.getEstimate())));
                 aItem.add(new Label("finished", String.valueOf(todo.isFinished())));
                 aItem.add(new Label("state", getPomodoroState(todo)));
+                aItem.add(new Label("finishedPomodoros", getNumberOfFinishedPomodoros(todo)));
+                aItem.add(new Label("voidPomodoros", getNumberOfVoidPomodoros(todo)));
             }
 
         });
@@ -63,8 +65,7 @@ public class Today extends WebPage {
 
     private String getPomodoroState(ToDo aToDo) {
         String state = "";
-        ToDo toDo = aToDo;
-        Pomodoro latestPomodoro = toDoService.getLatestPomodoro(toDo);
+        Pomodoro latestPomodoro = toDoService.getLatestPomodoro(aToDo);
 
         if (latestPomodoro == null) {
             state = "No Pomodoros";
@@ -80,6 +81,14 @@ public class Today extends WebPage {
         }
 
         return state;
+    }
+
+    private String getNumberOfFinishedPomodoros(ToDo aToDo) {
+        return String.valueOf(toDoService.getNumberOfFinishedPomodoros(aToDo));
+    }
+
+    private String getNumberOfVoidPomodoros(ToDo aToDo) {
+        return String.valueOf(toDoService.getNumberOfVoidPomodoros(aToDo));
     }
 
     private String getInterrupts(Pomodoro pomodoro) {
