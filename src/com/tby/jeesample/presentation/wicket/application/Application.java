@@ -1,11 +1,11 @@
 package com.tby.jeesample.presentation.wicket.application;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
+import org.jboss.weld.wicket.WeldApplication;
 
 import com.tby.jeesample.presentation.wicket.pages.Today;
 
-public class Application extends WebApplication {
+public class Application extends WeldApplication {
 
     @Override
     public Class<? extends Page> getHomePage() {
