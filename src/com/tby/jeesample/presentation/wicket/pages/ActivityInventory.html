@@ -1,0 +1,31 @@
+<html>
+	<body>
+		<h1>Activity Inventory</h1>
+		<a href="#" wicket:id="linkToday">Today</a>
+		<p>
+		<form wicket:id="addTodoForm">
+		    Description <input wicket:id="newDescription" type="text"><br>
+		    Estimate <input wicket:id="newEstimate" type="text"><br>
+            <input wicket:id="addToDo" type="submit" value="Add"/>
+        </form>
+
+		<table border="1">
+		  <thead>
+		      <tr>
+		          <th>Description</th>
+		          <th>Estimate</th>
+		          <th>Finished</th>
+		          <th>Edit</th>
+		      </tr>
+		  </thead>
+			<tbody>
+				<tr wicket:id="todoList">
+					<td wicket:id="description">Implement cool Wicket application</td>
+					<td wicket:id="estimate">5</td>
+					<td wicket:id="finished">false</td>
+					<td><a href="#" wicket:id="deleteToDo">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

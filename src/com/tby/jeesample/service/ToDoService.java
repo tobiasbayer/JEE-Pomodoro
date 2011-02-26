@@ -36,6 +36,15 @@ public class ToDoService {
     }
 
     public void save(ToDo aToDo) {
+        // TODO replace with user from session once user management is
+        // implemented
+        if (aToDo.getOwner() == null) {
+            SystemUser user = new SystemUser();
+            user.setFullName("Name");
+            user.setLogin("Login");
+            user.setPassword("Password");
+            aToDo.setOwner(user);
+        }
         entityManager.persist(aToDo);
     }
 

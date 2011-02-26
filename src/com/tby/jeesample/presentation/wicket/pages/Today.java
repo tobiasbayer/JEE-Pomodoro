@@ -46,6 +46,13 @@ public class Today extends WebPage {
 
         reload();
 
+        add(new Link<String>("linkActivities") {
+            @Override
+            public void onClick() {
+                setResponsePage(ActivityInventory.class);
+            }
+        });
+
         Form<ToDo> form = new Form<ToDo>("addTodoForm");
         add(form);
 
