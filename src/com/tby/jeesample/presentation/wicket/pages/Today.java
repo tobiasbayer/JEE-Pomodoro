@@ -46,7 +46,7 @@ public class Today extends WebPage {
 
         reload();
 
-        Form form = new Form("addTodoForm");
+        Form<ToDo> form = new Form<ToDo>("addTodoForm");
         add(form);
 
         IModel<List<ToDo>> availableTodos = new LoadableDetachableModel<List<ToDo>>() {
@@ -79,7 +79,7 @@ public class Today extends WebPage {
             }
         });
 
-        add(new ListView<ToDo>("todoList", new PropertyModel(this, "currentToDos")) {
+        add(new ListView<ToDo>("todoList", new PropertyModel<List<ToDo>>(this, "currentToDos")) {
 
             @Override
             protected void populateItem(ListItem<ToDo> aItem) {
@@ -90,7 +90,7 @@ public class Today extends WebPage {
                 aItem.add(new Label("state", getPomodoroState(todo)));
                 aItem.add(new Label("finishedPomodoros", getNumberOfFinishedPomodoros(todo)));
                 aItem.add(new Label("voidPomodoros", getNumberOfVoidPomodoros(todo)));
-                aItem.add(new Link("addPomodoro") {
+                aItem.add(new Link<ToDo>("addPomodoro") {
 
                     @Override
                     public void onClick() {
@@ -98,7 +98,7 @@ public class Today extends WebPage {
                     }
                 });
 
-                aItem.add(new Link("addInternalInterrupt") {
+                aItem.add(new Link<ToDo>("addInternalInterrupt") {
 
                     @Override
                     public void onClick() {
@@ -106,7 +106,7 @@ public class Today extends WebPage {
                     }
                 });
 
-                aItem.add(new Link("addExternalInterrupt") {
+                aItem.add(new Link<ToDo>("addExternalInterrupt") {
 
                     @Override
                     public void onClick() {
@@ -114,7 +114,7 @@ public class Today extends WebPage {
                     }
                 });
 
-                aItem.add(new Link("finishPomodoro") {
+                aItem.add(new Link<ToDo>("finishPomodoro") {
 
                     @Override
                     public void onClick() {
@@ -122,7 +122,7 @@ public class Today extends WebPage {
                     }
                 });
 
-                aItem.add(new Link("voidPomodoro") {
+                aItem.add(new Link<ToDo>("voidPomodoro") {
 
                     @Override
                     public void onClick() {
@@ -130,7 +130,7 @@ public class Today extends WebPage {
                     }
                 });
 
-                aItem.add(new Link("removeTodo") {
+                aItem.add(new Link<ToDo>("removeTodo") {
 
                     @Override
                     public void onClick() {
