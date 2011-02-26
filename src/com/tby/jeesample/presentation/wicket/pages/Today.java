@@ -8,12 +8,16 @@ import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import com.tby.jeesample.model.Pomodoro;
@@ -45,8 +49,14 @@ public class Today extends WebPage {
         Form form = new Form("addTodoForm");
         add(form);
 
-        DropDownChoice<ToDo> addTodoChoice = new DropDownChoice<ToDo>("todoToAdd", toDoService.findAll(),
-                new IChoiceRenderer<ToDo>() {
+        IModel<List<ToDo>> availableTodos = new LoadableDetachableModel<List<ToDo>>() {
+            public List<ToDo> load() {
+                return toDoService.findAll();
+            }
+        };
+
+        final DropDownChoice<ToDo> addTodoChoice = new DropDownChoice<ToDo>("todoToAdd", new Model<ToDo>(),
+                availableTodos, new IChoiceRenderer<ToDo>() {
 
                     @Override
                     public Object getDisplayValue(ToDo aToDo) {
@@ -59,6 +69,15 @@ public class Today extends WebPage {
                     }
                 });
         form.add(addTodoChoice);
+
+        form.add(new Button("addTodoToList") {
+            @Override
+            public void onSubmit() {
+                ToDo toDo = addTodoChoice.getModelObject();
+                toDoListService.addToDoToList(toDo, currentToDoList);
+                setResponsePage(Today.class);
+            }
+        });
 
         add(new ListView<ToDo>("todoList", new PropertyModel(this, "currentToDos")) {
 
