@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-
 import com.tby.jeesample.common.PomodoroAddDateComparator;
 import com.tby.jeesample.model.Pomodoro;
 import com.tby.jeesample.model.SystemUser;
@@ -34,6 +33,10 @@ public class ToDoService {
 
     public ToDo find(Long aId) {
         return entityManager.find(ToDo.class, aId);
+    }
+
+    public void save(ToDo aToDo) {
+        entityManager.persist(aToDo);
     }
 
     public void update(ToDo aToDo) {
