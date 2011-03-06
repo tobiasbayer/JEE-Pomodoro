@@ -131,7 +131,12 @@ public class Today extends WebPage {
 
                     @Override
                     public void onClick() {
-                        toDoService.addExternalInterrupt(todo);
+                        try {
+                            toDoService.addExternalInterrupt(todo);
+                        }
+                        catch (ApplicationException e) {
+                            error(e.getMessage());
+                        }
                     }
                 });
 
