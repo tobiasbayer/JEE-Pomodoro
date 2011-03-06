@@ -141,4 +141,9 @@ public class ToDoService {
         }
         return number;
     }
+
+    public void finish(ToDo aToDo) {
+        aToDo.setFinished(true);
+        entityManager.merge(aToDo);
+    }
 }

@@ -145,6 +145,15 @@ public class Today extends WebPage {
                         reload();
                     }
                 });
+
+                aItem.add(new Link<ToDo>("finishTodo") {
+
+                    @Override
+                    public void onClick() {
+                        toDoService.finish(todo);
+                        reload();
+                    }
+                });
             }
 
         });
@@ -171,17 +180,22 @@ public class Today extends WebPage {
         String state = "";
         Pomodoro latestPomodoro = toDoService.getLatestPomodoro(aToDo);
 
-        if (latestPomodoro == null) {
-            state = "No Pomodoros";
+        if (aToDo.isFinished()) {
+            state = "Todo finished";
         }
-        else if (!latestPomodoro.isFinished() && !latestPomodoro.isVoidPomodoro()) {
-            state = "Pomodoro running...: " + getInterrupts(latestPomodoro);
-        }
-        else if (latestPomodoro.isFinished()) {
-            state = "Pomodoro finished: " + getInterrupts(latestPomodoro);
-        }
-        else if (latestPomodoro.isVoidPomodoro()) {
-            state = "Pomodoro void: " + getInterrupts(latestPomodoro);
+        else {
+            if (latestPomodoro == null) {
+                state = "No Pomodoros";
+            }
+            else if (!latestPomodoro.isFinished() && !latestPomodoro.isVoidPomodoro()) {
+                state = "Pomodoro running...: " + getInterrupts(latestPomodoro);
+            }
+            else if (latestPomodoro.isFinished()) {
+                state = "Pomodoro finished: " + getInterrupts(latestPomodoro);
+            }
+            else if (latestPomodoro.isVoidPomodoro()) {
+                state = "Pomodoro void: " + getInterrupts(latestPomodoro);
+            }
         }
 
         return state;
