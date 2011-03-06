@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import com.tby.jeesample.common.ApplicationException;
 import com.tby.jeesample.common.PomodoroAddDateComparator;
 import com.tby.jeesample.model.Pomodoro;
 import com.tby.jeesample.model.SystemUser;
@@ -69,7 +70,10 @@ public class ToDoService {
         return entityManager.createQuery(query).getResultList();
     }
 
-    public void addPomodoro(ToDo aToDo, Pomodoro aPomodoro) {
+    public void addPomodoro(ToDo aToDo, Pomodoro aPomodoro) throws ApplicationException {
+        if (aToDo.isFinished()) {
+            throw new ApplicationException("Todo is already finished. You cannot add a Pomodoro to this Todo.");
+        }
         ToDo todo = entityManager.merge(aToDo);
         aPomodoro.setAddDate(new Date());
         todo.addPomodoro(aPomodoro);
@@ -104,17 +108,20 @@ public class ToDoService {
         }
     }
 
-    public void addExternalInterrupt(ToDo aToDo) {
+    public void addExternalInterrupt(ToDo aToDo) throws ApplicationException {
         ToDo todo = entityManager.merge(aToDo);
         Pomodoro latestPomodoro = getLatestPomodoro(todo);
+        checkFinished(latestPomodoro);
         if (latestPomodoro != null) {
             latestPomodoro.setExternalInterrupts(latestPomodoro.getExternalInterrupts() + 1);
         }
     }
 
-    public void addInternalInterrupt(ToDo aToDo) {
+    public void addInternalInterrupt(ToDo aToDo) throws ApplicationException {
         ToDo todo = entityManager.merge(aToDo);
         Pomodoro latestPomodoro = getLatestPomodoro(todo);
+        checkFinished(latestPomodoro);
+
         if (latestPomodoro != null) {
             latestPomodoro.setInternalInterrupts(latestPomodoro.getInternalInterrupts() + 1);
         }
@@ -145,5 +152,12 @@ public class ToDoService {
     public void finish(ToDo aToDo) {
         aToDo.setFinished(true);
         entityManager.merge(aToDo);
+    }
+
+    private void checkFinished(Pomodoro aPomodoro) throws ApplicationException {
+        if (aPomodoro.isFinished() || aPomodoro.isVoidPomodoro()) {
+            throw new ApplicationException(
+                    "The Pomodoro is already finished or void. Add a new Pomodoro before adding interrupts.");
+        }
     }
 }

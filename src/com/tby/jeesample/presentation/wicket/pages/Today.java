@@ -15,11 +15,13 @@ import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
+import com.tby.jeesample.common.ApplicationException;
 import com.tby.jeesample.model.Pomodoro;
 import com.tby.jeesample.model.ToDo;
 import com.tby.jeesample.model.ToDoList;
@@ -55,6 +57,8 @@ public class Today extends WebPage {
 
         Form<ToDo> form = new Form<ToDo>("addTodoForm");
         add(form);
+
+        add(new FeedbackPanel("feedback"));
 
         IModel<List<ToDo>> availableTodos = new LoadableDetachableModel<List<ToDo>>() {
             public List<ToDo> load() {
@@ -101,7 +105,12 @@ public class Today extends WebPage {
 
                     @Override
                     public void onClick() {
-                        toDoService.addPomodoro(todo, pomodoroService.create());
+                        try {
+                            toDoService.addPomodoro(todo, pomodoroService.create());
+                        }
+                        catch (ApplicationException e) {
+                            error(e.getMessage());
+                        }
                     }
                 });
 
