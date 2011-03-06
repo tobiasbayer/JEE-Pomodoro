@@ -118,7 +118,12 @@ public class Today extends WebPage {
 
                     @Override
                     public void onClick() {
-                        toDoService.addInternalInterrupt(todo);
+                        try {
+                            toDoService.addInternalInterrupt(todo);
+                        }
+                        catch (ApplicationException e) {
+                            error(e.getMessage());
+                        }
                     }
                 });
 
